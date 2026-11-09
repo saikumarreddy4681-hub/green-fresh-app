@@ -24,6 +24,7 @@ import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import Demo from '@/components/ui/demo';
 
 export default function App() {
   return (
@@ -68,6 +69,10 @@ export default function App() {
                 {/* Admin Dashboard */}
                 <Route path="/admin" element={<AdminDashboardPage />} />
                 <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+
+                {/* SaaS Landing Page Kit / Demo */}
+                <Route path="/saas-template" element={<Demo />} />
+                <Route path="/demo" element={<Demo />} />
 
                 {/* Fallback redirect */}
                 <Route path="*" element={<Navigate to="/" replace />} />
