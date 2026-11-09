@@ -1,173 +1,212 @@
-# 🌿 Green Fresh App – Full-Stack Organic Grocery Platform
+# 🌿 GreenFresh – Farm to Doorstep (Organic Grocery E-Commerce Platform)
 
-A modern, responsive, full-stack online grocery shopping platform built with **React (Vite) + Tailwind CSS + Node.js + Express.js + MongoDB**.
+[![Node.js](https://img.shields.io/badge/Node.js-v18%2B-green.svg)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-18-blue.svg)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-6-purple.svg)](https://vitejs.dev/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-teal.svg)](https://tailwindcss.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas%20Ready-emerald.svg)](https://www.mongodb.com/)
 
-Inspired by premium Dribbble designs (**Natura Market**, **GREENAURA**, **Freshbazar**, and **FreshCart**), Green Fresh provides a farm-to-table shopping experience with live freshness scores, real-time cart drawer, cold-chain shipment tracking, simulated test payments (UPI/Card/COD), and a comprehensive Admin Dashboard.
+A modern, high-performance, full-stack organic grocery shopping web application built with **React (Vite) + Tailwind CSS + Node.js + Express.js + MongoDB**.
+
+GreenFresh delivers a direct farm-to-table shopping experience strictly featuring **3 core grocery categories** with 55 carefully curated, organic products, high-fidelity local vector imagery, responsive slide-over cart, wishlist, checkout with multiple payment methods, order tracking, and a 12-section administrative control panel.
+
+---
+
+## 📋 Table of Contents
+- [Product Categories & Catalog](#-product-categories--catalog)
+- [Key Features](#-key-features)
+- [Default Login Credentials](#-default-login-credentials)
+- [Quick Start Guide](#-quick-start-guide)
+- [MongoDB Atlas Integration](#-mongodb-atlas-integration)
+- [Connecting to GitHub](#-connecting-to-github)
+- [API Reference](#-api-reference)
+- [Troubleshooting & Port Conflicts](#-troubleshooting--port-conflicts)
+
+---
+
+## 🧺 Product Categories & Catalog
+
+The platform strictly curates **3 essential grocery categories** (55 total products):
+
+### 1. Fresh Fruits (20 Items)
+- **Apples** (Kinnaur Royal Gala Red Apples)
+- **Bananas** (Robusta Naturally Ripened Bananas)
+- **Mangoes** (Ratnagiri Alphonso GI Mangoes)
+- **Oranges** (Nagpur Sweet Santra Oranges)
+- **Grapes** (Sonaka Seedless Green Grapes)
+- **Papaya** (Red Lady Sweet Farm Papaya)
+- **Watermelon** (Kiran Striped Juicy Watermelon)
+- **Pomegranate** (Bhagwa Ruby Red Pomegranate)
+- **Guava** (Allahabad Safeda Pink Guava)
+- **Kiwi** (Zespri Green Premium Kiwi)
+- **Pineapple** (Queen Sweet Golden Pineapple)
+- **Strawberries** (Mahabaleshwar Winter Strawberries)
+- **Dragon Fruit** (Pink Pitaya Dragon Fruit)
+- **Sweet Lime** (Fresh Mosambi Sweet Lime)
+- **Jackfruit** (Tender Sweet Kathal Pods)
+- **Sapota** (Dahanu Caramel Sweet Sapota)
+- **Chikoo** (Cricket Ball Granular Chikoo)
+- **Pear** (Kashmir Nakh Green Pear)
+- **Muskmelon** (Kharbuja Honey Sweet Muskmelon)
+- **Lemon** (Kagzi Juicy Yellow Lemons)
+
+### 2. Fresh Vegetables (20 Items)
+- **Tomatoes** (Country Desi Vine Tomatoes)
+- **Potatoes** (Pahari Jyoti Golden Potatoes)
+- **Onions** (Nashik Red Premium Onions)
+- **Carrots** (Ooty Sweet Orange Carrots)
+- **Cucumbers** (Crisp English Salad Cucumbers)
+- **Spinach** (Tender Baby Palak Leaves)
+- **Broccoli** (Fresh Green Crown Broccoli)
+- **Cauliflower** (Snowball White Cauliflower)
+- **Cabbage** (Crisp Round Green Cabbage)
+- **Green Beans** (French Tender Stringless Beans)
+- **Brinjal** (Baingan Purple Round Eggplant)
+- **Capsicum** (Crisp Green Bell Peppers)
+- **Green Chillies** (Spicy Fresh Hari Mirch)
+- **Beetroot** (Earthy Deep Red Beetroot)
+- **Radish** (Mooli White Crunchy Radish)
+- **Pumpkin** (Kaddu Golden Sweet Pumpkin)
+- **Bottle Gourd** (Lauki Tender Bottle Gourd)
+- **Bitter Gourd** (Karela Farm Bitter Gourd)
+- **Drumstick** (Sahjan Tender Moringa Drumsticks)
+- **Coriander Leaves** (Fragrant Fresh Dhaniya Leaves)
+
+### 3. Milk & Dairy (15 Items)
+- **Fresh Cow Milk** (Pasteurised Whole Farm Cow Milk, 1 L)
+- **Buffalo Milk** (High Fat Pure Murrah Buffalo Milk, 1 L)
+- **Toned Milk** (Daily Toned Milk 3.0% Fat, 1 L)
+- **Full Cream Milk** (Rich Whole Milk 6.0% Fat, 1 L)
+- **Organic Milk** (Certified Grass-Fed Organic Milk, 1 L)
+- **Curd** (Thick Desi Dahi Set Curd, 500g)
+- **Paneer** (Soft Artisanal Malai Paneer, 200g)
+- **Butter** (Slow-Churned Desi White Makhan, 250g)
+- **Ghee** (Bilona Churned A2 Desi Cow Ghee, 500ml)
+- **Cheese** (Farmhouse Cheddar Aged Cheese, 200g)
+- **Buttermilk** (Masala Spiced Refreshing Chaas, 500ml)
+- **Greek Yogurt** (Triple-Strained Natural Yogurt, 400g)
+- **Flavoured Milk** (Badam Kesar Saffron Farm Milk, 200ml)
+- **Fresh Cream** (Rich Malai Cooking Cream, 250ml)
+- **Skimmed Milk** (Zero Fat Diet Milk 0.5% Fat, 1 L)
 
 ---
 
 ## 🌟 Key Features
 
-### 🛒 Customer Storefront
-- **Aesthetic Farm-Fresh UI**: Clean emerald green and off-white palette with floating badges (`100% Natural`, `Same Day Delivery`, `4.9/5 Rating`).
-- **Live Search & Autocomplete**: Instant search by vegetable, fruit, grocery, or partner farm name.
-- **Product Catalog & Filters**:
-  - Filter by category: *Fresh Fruits, Fresh Vegetables, Organic Products, Dairy, Fresh Juices, Daily Groceries*.
-  - Sort by *Featured, Freshness Score, Rating, Price Low-to-High, Price High-to-Low*.
-  - 100% Organic filter and price slider.
-- **Rich Product Details**:
-  - High-res imagery with *Freshness Score (e.g. 98%)*, harvest date, and farm origin.
-  - Interactive customer review system with star ratings.
-  - Related items carousel.
-- **Freshbazar Slide-Over Cart Drawer**:
-  - Live quantity adjustment (`+` / `-` / remove).
-  - Free delivery threshold progress bar with celebratory unlock.
-- **Coupons & Discounts**:
-  - Apply promo codes (e.g., `GREEN10` for 10% off, `WELCOME20` for 20% off).
-- **Checkout & Multi-Mode Payment**:
-  - Delivery slot picker (Express 45-min, Morning, Evening).
-  - Payment modes: **UPI (QR code / VPA)**, **Credit/Debit Card**, and **Cash on Delivery**.
-- **Interactive Shipment Tracking**:
-  - Real-time 5-step status: `Order Placed` ➔ `Packed at Farm` ➔ `Cold-Chain Transit` ➔ `Out For Delivery` ➔ `Delivered Fresh`.
-  - Electric vehicle cold-chain temperature telemetry (4.2°C).
-  - Order cancellation support before dispatch.
-- **Customer Account & Saved Addresses**:
-  - Manage contact info, view order invoices, and save multiple delivery addresses.
-
-### 🛡️ Admin Dashboard (`/admin`)
-- **Executive KPI Cards**:
-  - Total Gross Revenue with weekly growth trend (`↑ 18.2%`).
-  - Total Orders, Catalog Products, and Active Customers.
-- **Interactive Analytics**:
-  - 7-day revenue trend bar chart.
-  - Category sales distribution breakdown.
-- **Product Management (Full CRUD)**:
-  - Add new products with image preview, organic tag, stock, harvest date, and freshness score.
-  - Edit existing produce items.
-  - Delete items from catalog.
-- **Order Pipeline Control**:
-  - Filter orders by status (*Placed, Packed, Shipped, Out for Delivery, Delivered, Cancelled*).
-  - Update status dropdown in real-time.
-- **Customer Directory**:
-  - View registered user accounts and roles.
+- **No Broken or Mismatched Images**: Every produce item is backed by a dedicated local SVG asset inside `frontend/public/images/` designed in modern studio style (no external network dependencies or unrelated images).
+- **Dual-Mode Resilient Architecture**: Backend operates seamlessly with MongoDB Atlas OR self-healing in-memory fallback. The website never crashes even if MongoDB is offline.
+- **Dynamic Category Navigation**: Quick tabs for `/fruits`, `/vegetables`, and `/milk-dairy`.
+- **Slide-Over Cart & Free Shipping Bar**: Real-time quantity adjustments, free delivery threshold calculation (Free over ₹350, ₹40 under ₹350).
+- **Multi-Option Checkout**: Simulated instant demo checkout supporting **UPI (QR code/VPA)**, **Credit/Debit Card**, and **Cash on Delivery**.
+- **Wishlist Support**: Save favorite items with persistent local storage and 1-click "Move All to Cart".
+- **Admin Dashboard (`/admin/dashboard`)**: Full 12-section management dashboard including KPIs, Product CRUD, low-stock alerts, customer overview, and order status transitions.
 
 ---
 
-## 🚀 Quick Start Guide (VS Code)
+## 🔐 Default Login Credentials
 
-### 1. Start the Backend Server
+| Role | Email | Password | Access Level |
+|---|---|---|---|
+| **Primary Admin** | `admin@greenfresh.com` | `admin123` | Full Admin Dashboard (`/admin/dashboard`) |
+| **Personal Admin** | `saikumarreddy4681@gmail.com` | `admin123` | Full Admin Dashboard (`/admin/dashboard`) |
+| **Demo Customer** | `customer@greenfresh.com` | `customer123` | Storefront Shopping & Order Tracking |
+
+---
+
+## 🚀 Quick Start Guide
+
+### Prerequisites
+- Node.js v18 or later installed
+- npm or pnpm installed
+
+### 1. Install Dependencies
 ```bash
-cd backend
+# Install root dependencies
 npm install
+
+# Install backend dependencies
+cd backend && npm install && cd ..
+
+# Install frontend dependencies
+cd frontend && npm install && cd ..
+```
+
+### 2. Run Both Servers Concurrently
+From the root project directory:
+```bash
 npm run dev
 ```
-> The backend will start on **`http://localhost:5000`**.  
-> If no MongoDB Atlas URI is set, the backend seamlessly runs with its resilient in-memory seed store so you can test everything immediately without needing a database daemon running!
-
-### 2. Start the Frontend Client
-Open a second terminal:
-```bash
-cd frontend
-npm install
-npm run dev
-```
-> The frontend will launch at **`http://localhost:5173`**.
+- **Backend API**: `http://localhost:5000`
+- **Frontend App**: `http://localhost:5173`
+- **Health Check**: `http://localhost:5000/api/health`
 
 ---
 
-## 🔑 Demo Credentials
-
-| Role | Email | Password | Features |
-| :--- | :--- | :--- | :--- |
-| **Admin** | `admin@greenfresh.com` | `admin123` | Full access to Admin Dashboard (`/admin`), inventory CRUD, order status updates |
-| **Customer** | `customer@greenfresh.com` | `user123` | Cart, wishlist, checkout, orders, address book |
-
-> *Tip: On the `/login` page, you can click the **Customer Demo** or **Admin Demo** buttons to fill the form in one click!*
-
----
-
-## 🗄️ Connecting MongoDB Atlas
+## 🍃 MongoDB Atlas Integration
 
 1. Create a free cluster on [MongoDB Atlas](https://www.mongodb.com/atlas).
-2. Copy your connection URI (e.g. `mongodb+srv://<username>:<password>@cluster0.mongodb.net/green_fresh_app?retryWrites=true&w=majority`).
-3. Open `backend/.env` and replace:
-   ```env
-   MONGODB_URI=your_mongodb_atlas_connection_string_here
-   ```
-4. Restart the backend: `npm run dev`. The system will automatically seed all categories, products, and default accounts into your database.
+2. Create a Database User and allow your IP address in **Network Access** (`0.0.0.0/0` for universal dev access).
+3. Open `backend/.env` and update `MONGODB_URI`:
+```env
+PORT=5000
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/green_fresh_app?retryWrites=true&w=majority
+JWT_SECRET=green_fresh_secret_key_2026_super_secure
+CLIENT_URL=http://localhost:5173
+NODE_ENV=development
+```
+4. Restart the backend. GreenFresh will automatically connect, synchronize the schema, and auto-seed all 55 products and categories!
 
 ---
 
-## 📁 Project Architecture
+## 🐙 Connecting to GitHub
 
-```
-green-fresh-app/
-├── backend/
-│   ├── config/
-│   │   └── db.js                 # Database connection & memory fallback store
-│   ├── controllers/
-│   │   ├── authController.js     # Register, login, profile
-│   │   ├── productController.js  # Products CRUD, search, reviews
-│   │   ├── orderController.js    # Order placement, tracking, cancellation
-│   │   └── adminController.js    # KPIs, dashboard analytics, order status
-│   ├── middleware/
-│   │   └── auth.js               # JWT verification & Admin guards
-│   ├── models/
-│   │   ├── User.js               # Customer & Admin schemas
-│   │   ├── Product.js            # Products, freshness scores, reviews
-│   │   ├── Category.js           # Groceries & Produce categories
-│   │   └── Order.js              # Items, payment, delivery timeline
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   ├── productRoutes.js
-│   │   ├── orderRoutes.js
-│   │   └── adminRoutes.js
-│   ├── seedData.js               # Rich realistic produce with Unsplash photos
-│   ├── server.js                 # Express server & API routes
-│   └── .env                      # Environment config
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx        # Navigation, live search autocomplete, cart trigger
-│   │   │   ├── Footer.jsx        # Brand pillars, newsletter, payment badges
-│   │   │   ├── ProductCard.jsx   # Natura Market / GREENAURA styled product card
-│   │   │   ├── CartDrawer.jsx    # Freshbazar slide-over shopping cart
-│   │   │   └── Toast.jsx         # Action notifications
-│   │   ├── context/
-│   │   │   ├── AuthContext.jsx   # User login session state
-│   │   │   └── CartContext.jsx   # Cart, wishlist, coupons, free delivery progress
-│   │   ├── pages/
-│   │   │   ├── HomePage.jsx      # Hero, trust badges, categories, bestsellers, deals
-│   │   │   ├── ProductsPage.jsx  # Catalog with price range, sorting, organic toggle
-│   │   │   ├── ProductDetailPage.jsx # Harvest details, reviews & related produce
-│   │   │   ├── CategoryPage.jsx  # Dedicated category landings
-│   │   │   ├── CartPage.jsx      # Full shopping cart & coupon redemption
-│   │   │   ├── CheckoutPage.jsx  # Addresses, delivery slots & payment methods
-│   │   │   ├── OrderSuccessPage.jsx # Confetti celebration & delivery estimate
-│   │   │   ├── OrderTrackingPage.jsx # 5-step live shipment tracker
-│   │   │   ├── MyOrdersPage.jsx  # Order history & invoice views
-│   │   │   ├── UserProfilePage.jsx # Profile edit & address book
-│   │   │   ├── AboutPage.jsx     # Our organic farms story
-│   │   │   ├── ContactPage.jsx   # Support form & FAQ accordion
-│   │   │   ├── LoginPage.jsx     # Login with 1-click demo buttons
-│   │   │   ├── RegisterPage.jsx  # New account registration
-│   │   │   └── AdminDashboardPage.jsx # FreshCart styled KPIs, charts, CRUD & orders
-│   │   ├── services/
-│   │   │   └── api.js            # Centralized API client
-│   │   ├── styles/
-│   │   │   └── index.css         # Tailwind & custom animations
-│   │   ├── App.jsx               # React Router config
-│   │   └── main.jsx
-│   ├── tailwind.config.js
-│   ├── vite.config.js
-│   └── package.json
-└── package.json
+The repository is already initialized and committed locally with a clean `.gitignore`.
+
+To connect to your GitHub account (`saikumarreddy4681-hub`):
+
+1. Create a new empty repository named `green-fresh-app` on [GitHub](https://github.com/new) (do **not** check "Initialize with README").
+2. Run the following commands in PowerShell from the project root:
+```powershell
+# Add your GitHub remote repository
+git remote add origin https://github.com/saikumarreddy4681-hub/green-fresh-app.git
+
+# Push main branch to GitHub
+git push -u origin main
 ```
 
 ---
 
-## 🛡️ License & Credits
-Built for modern full-stack portfolio & production demonstration.
-Green Fresh App is licensed under the MIT License.
+## 📡 API Reference
 
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| `GET` | `/api/health` | Service health status | No |
+| `GET` | `/api/products` | Retrieve products (with filtering, category, sorting) | No |
+| `GET` | `/api/products/:id` | Product detail by ID | No |
+| `GET` | `/api/categories` | Retrieve 3 grocery categories | No |
+| `POST` | `/api/auth/register` | Customer sign-up | No |
+| `POST` | `/api/auth/login` | Sign-in (Customer or Admin) | No |
+| `GET` | `/api/orders/my-orders` | Current customer's order history | Yes |
+| `POST` | `/api/orders` | Place a new grocery order | Yes |
+| `GET` | `/api/admin/stats` | Executive KPI metrics & chart data | Yes (Admin) |
+| `POST` | `/api/products` | Add new produce item | Yes (Admin) |
+| `PUT` | `/api/products/:id` | Edit produce item | Yes (Admin) |
+| `DELETE` | `/api/products/:id` | Remove produce item | Yes (Admin) |
+
+---
+
+## 🛠️ Troubleshooting & Port Conflicts
+
+If port `5000` or `5173` ever shows `EADDRINUSE: address already in use`:
+
+```powershell
+# Clean all orphaned node processes on ports 5000 and 5173
+npm run clean-ports
+
+# Start the servers fresh
+npm run dev
+```
+
+---
+
+Built with 💚 for fresh organic living.
