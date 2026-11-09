@@ -1,0 +1,28 @@
+{
+  "name": "green-fresh-app",
+  "version": "1.0.0",
+  "description": "Green Fresh App - Full-Stack Organic Fruits, Vegetables & Grocery Shopping Platform",
+  "scripts": {
+    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"green,cyan\" \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "clean-ports": "powershell -NoProfile -Command \"Get-NetTCPConnection -LocalPort 5000,5173,5174 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }\"",
+    "build:frontend": "npm --prefix frontend run build",
+    "seed": "npm --prefix backend run seed",
+    "start": "npm --prefix backend start"
+  },
+  "keywords": [
+    "grocery-ecommerce",
+    "organic-food",
+    "react",
+    "vite",
+    "tailwind",
+    "express",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "green-fresh-backend-proxy",
+  "version": "1.0.0",
+  "description": "Proxy runner for Green Fresh backend from inside frontend folder",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "npm --prefix ../../backend start",
+    "dev": "npm --prefix ../../backend run dev",
+    "seed": "npm --prefix ../../backend run seed"
+  }
+}
+
