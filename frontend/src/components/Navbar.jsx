@@ -223,13 +223,13 @@ export default function Navbar() {
                           className="flex items-center gap-3 min-w-0 flex-1 mr-3"
                         >
                           <img
-                            src={product.image || '/images/categories/vegetables.svg'}
+                            src={product.image || '/images/products/vegetables/tomato.jpg'}
                             alt={product.name}
                             onError={(e) => {
                               e.currentTarget.onerror = null;
-                              e.currentTarget.src = '/images/categories/vegetables.svg';
+                              e.currentTarget.src = '/images/products/vegetables/tomato.jpg';
                             }}
-                            className="w-11 h-11 object-contain rounded-lg bg-gray-50 p-1 shrink-0 border border-gray-100"
+                            className="w-11 h-11 object-cover rounded-lg bg-gray-50 shrink-0 border border-gray-100"
                           />
                           <div className="min-w-0">
                             <h4 className="text-xs font-bold text-gray-900 truncate">{product.name}</h4>

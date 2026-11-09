@@ -128,7 +128,7 @@ export default function ProductDetailPage() {
               alt={product.name}
               onError={(e) => {
                 e.currentTarget.onerror = null;
-                e.currentTarget.src = '/images/categories/vegetables.svg';
+                e.currentTarget.src = '/images/products/vegetables/tomato.jpg';
               }}
               className="w-full h-full object-cover"
             />

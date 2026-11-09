@@ -2,11 +2,11 @@ import { memoryStore } from './config/db.js';
 import { getProducts, getCategories, getProductById } from './controllers/productController.js';
 import { login, register } from './controllers/authController.js';
 
-console.log('--- RUNNING GREENFRESH DIRECT TEST SUITE (55 PRODUCTS • 3 CATEGORIES) ---');
+console.log('--- RUNNING GREENFRESH DIRECT TEST SUITE (47 PRODUCTS • 3 CATEGORIES) ---');
 
 // Test 1: Products count
 const prodCount = memoryStore.products.length;
-console.log('[TEST 1 - Product Count (55)]: ', prodCount === 55 ? 'PASS' : `FAIL (${prodCount})`);
+console.log('[TEST 1 - Product Count (47)]: ', prodCount === 47 ? 'PASS' : `FAIL (${prodCount})`);
 
 // Test 2: Category Count (3)
 const catCount = memoryStore.categories.length;
@@ -21,26 +21,28 @@ const mockRes = {
 
 // Test 3: Get all products via controller
 await getProducts({ query: {} }, mockRes);
-console.log('[TEST 3 - Controller All Prods]:', mockResData.success && mockResData.products.length === 55 ? 'PASS' : 'FAIL');
+console.log('[TEST 3 - Controller All Prods]:', mockResData.success && mockResData.products.length === 47 ? 'PASS' : 'FAIL');
 
-// Test 4: Category Fresh Fruits (20)
+// Test 4: Category Fresh Fruits (15)
 await getProducts({ query: { category: 'fresh-fruits' } }, mockRes);
-console.log('[TEST 4 - Fresh Fruits (20)]:   ', mockResData.success && mockResData.products.length === 20 ? 'PASS' : `FAIL (${mockResData.products.length})`);
+console.log('[TEST 4 - Fresh Fruits (15)]:   ', mockResData.success && mockResData.products.length === 15 ? 'PASS' : `FAIL (${mockResData.products.length})`);
 
 // Test 5: Category Fresh Vegetables (20)
 await getProducts({ query: { category: 'fresh-vegetables' } }, mockRes);
 console.log('[TEST 5 - Vegetables (20)]:     ', mockResData.success && mockResData.products.length === 20 ? 'PASS' : `FAIL (${mockResData.products.length})`);
 
-// Test 6: Category Milk & Dairy (15)
+// Test 6: Category Milk & Dairy (12)
 await getProducts({ query: { category: 'milk-dairy' } }, mockRes);
-console.log('[TEST 6 - Milk & Dairy (15)]:   ', mockResData.success && mockResData.products.length === 15 ? 'PASS' : `FAIL (${mockResData.products.length})`);
+console.log('[TEST 6 - Milk & Dairy (12)]:   ', mockResData.success && mockResData.products.length === 12 ? 'PASS' : `FAIL (${mockResData.products.length})`);
 
-// Test 7: Image Verification (No cats, no PC cases)
-const limes = memoryStore.products.find(p => p.name === 'Lemon' || p.name === 'Sweet Lime');
-const kiwi = memoryStore.products.find(p => p.name === 'Kiwi');
-const isLimesValid = limes && !limes.image.includes('photo-1533738363-b7f9aef128ce');
-const isKiwiValid = kiwi && !kiwi.image.includes('photo-1587302912306-cf1ed9c33146');
-console.log('[TEST 7 - Image Accuracy]:      ', isLimesValid && isKiwiValid ? 'PASS' : 'FAIL', '(Verified realistic grocery images)');
+// Test 7: Image Verification (Real commercial photographs in /images/products/)
+const apple = memoryStore.products.find(p => p.name === 'Apple');
+const tomato = memoryStore.products.find(p => p.name === 'Tomato');
+const milk = memoryStore.products.find(p => p.name === 'Fresh Milk');
+const areImagesValid = apple?.image === '/images/products/fruits/apple.jpg' &&
+                       tomato?.image === '/images/products/vegetables/tomato.jpg' &&
+                       milk?.image === '/images/products/dairy/freshmilk.jpg';
+console.log('[TEST 7 - Real Photos Paths]:   ', areImagesValid ? 'PASS' : 'FAIL', '(Verified genuine commercial photos)');
 
 // Test 8: Customer Login
 let loginResult = null;

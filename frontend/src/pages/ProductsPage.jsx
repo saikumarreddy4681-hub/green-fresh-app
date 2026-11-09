@@ -22,10 +22,10 @@ export default function ProductsPage() {
   const [showWishlistOnly, setShowWishlistOnly] = useState(searchParams.get('wishlist') === 'true');
 
   const categories = [
-    { id: 'all', label: 'All Groceries', count: 55, icon: '🛒' },
-    { id: 'fresh-fruits', label: 'Fresh Fruits', count: 20, icon: '🍎' },
+    { id: 'all', label: 'All Groceries', count: 47, icon: '🛒' },
+    { id: 'fresh-fruits', label: 'Fresh Fruits', count: 15, icon: '🍎' },
     { id: 'fresh-vegetables', label: 'Fresh Vegetables', count: 20, icon: '🥦' },
-    { id: 'milk-dairy', label: 'Milk & Dairy', count: 15, icon: '🥛' }
+    { id: 'milk-dairy', label: 'Milk & Dairy', count: 12, icon: '🥛' }
   ];
 
   // Sync state if URL query params change

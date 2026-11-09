@@ -21,19 +21,19 @@ export default function CategoryPage({ initialCategory }) {
       title: 'Fresh Orchard Fruits',
       subtitle: 'Sun-ripened, 100% natural, sweet and vitamin-rich fruits harvested daily from certified orchards',
       image: '🍎',
-      itemTarget: '20+ Fresh Fruits'
+      itemTarget: '15 Fresh Fruits'
     },
     'fresh-vegetables': {
       title: 'Fresh Garden Vegetables',
       subtitle: 'Crisp, chemical-free greens, roots, and aromatics delivered farm-fresh to your doorstep',
       image: '🥦',
-      itemTarget: '20+ Fresh Vegetables'
+      itemTarget: '20 Fresh Vegetables'
     },
     'milk-dairy': {
       title: 'Fresh Milk & Dairy',
       subtitle: 'Pure pasteurized cow milk, farm-fresh malai paneer, thick dahi, butter, and bilona ghee',
       image: '🥛',
-      itemTarget: '15+ Dairy Essentials'
+      itemTarget: '12 Dairy Essentials'
     }
   };
 

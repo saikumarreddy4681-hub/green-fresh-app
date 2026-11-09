@@ -6,6 +6,7 @@ import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
+import LocationModal from './components/LocationModal';
 import Toast from './components/Toast';
 
 import HomePage from './pages/HomePage';
@@ -81,6 +82,9 @@ export default function App() {
 
             {/* Shopping Cart Side Drawer */}
             <CartDrawer />
+
+            {/* Delivery Location Selector Modal */}
+            <LocationModal />
 
             {/* Global Toast Notifications */}
             <Toast />

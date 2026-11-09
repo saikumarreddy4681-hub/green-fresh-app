@@ -59,8 +59,8 @@ export const memoryStore = {
       orderItems: [
         {
           productId: 'gf-fruit-01',
-          name: 'Apples',
-          image: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=800&q=80',
+          name: 'Apple',
+          image: '/images/products/fruits/apple.jpg',
           price: 140,
           unit: '1 kg',
           quantity: 2,
@@ -69,7 +69,7 @@ export const memoryStore = {
         {
           productId: 'gf-dairy-01',
           name: 'Fresh Cow Milk',
-          image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80',
+          image: '/images/products/dairy/freshmilk.jpg',
           price: 58,
           unit: '1 L Bottle',
           quantity: 2,

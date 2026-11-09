@@ -97,9 +97,9 @@ export default function HomePage() {
               </Link>
             </div>
             <img
-              src="/images/categories/fruits.svg"
+              src="/images/products/banners/banner-fruits.jpg"
               alt="Fruits"
-              className="absolute -right-4 -bottom-4 w-40 h-40 object-contain pointer-events-none opacity-90 group-hover:scale-110 transition-transform duration-500"
+              className="absolute -right-4 -bottom-4 w-40 h-40 object-cover rounded-2xl pointer-events-none opacity-85 group-hover:scale-105 transition-transform duration-500 shadow-md"
             />
           </div>
 
@@ -123,9 +123,9 @@ export default function HomePage() {
               </Link>
             </div>
             <img
-              src="/images/categories/dairy.svg"
+              src="/images/products/banners/banner-dairy.jpg"
               alt="Dairy"
-              className="absolute -right-4 -bottom-4 w-40 h-40 object-contain pointer-events-none opacity-90 group-hover:scale-110 transition-transform duration-500"
+              className="absolute -right-4 -bottom-4 w-40 h-40 object-cover rounded-2xl pointer-events-none opacity-85 group-hover:scale-105 transition-transform duration-500 shadow-md"
             />
           </div>
 
@@ -149,9 +149,9 @@ export default function HomePage() {
               </Link>
             </div>
             <img
-              src="/images/categories/vegetables.svg"
+              src="/images/products/banners/banner-farm.jpg"
               alt="Vegetables"
-              className="absolute -right-4 -bottom-4 w-40 h-40 object-contain pointer-events-none opacity-90 group-hover:scale-110 transition-transform duration-500"
+              className="absolute -right-4 -bottom-4 w-40 h-40 object-cover rounded-2xl pointer-events-none opacity-85 group-hover:scale-105 transition-transform duration-500 shadow-md"
             />
           </div>
         </div>
@@ -177,12 +177,12 @@ export default function HomePage() {
             to="/fruits"
             className="group relative bg-white rounded-3xl p-5 border border-gray-100 hover:border-emerald-300 hover:shadow-lg transition-all duration-300 flex items-center gap-4 overflow-hidden"
           >
-            <div className="w-20 h-20 rounded-2xl bg-rose-50 p-2 shrink-0 flex items-center justify-center border border-rose-100 group-hover:scale-105 transition-transform">
-              <img src="/images/categories/fruits.svg" alt="Fruits" className="w-full h-full object-contain" />
+            <div className="w-20 h-20 rounded-2xl bg-rose-50 p-1 shrink-0 flex items-center justify-center border border-rose-100 group-hover:scale-105 transition-transform overflow-hidden">
+              <img src="/images/products/fruits/apple.jpg" alt="Fruits" className="w-full h-full object-cover rounded-xl" />
             </div>
             <div>
               <span className="text-[10px] font-black text-rose-600 uppercase tracking-wider bg-rose-50 px-2 py-0.5 rounded-md">
-                20 VARIETIES
+                15 VARIETIES
               </span>
               <h3 className="text-base font-black text-gray-900 mt-1 group-hover:text-[#0c831f] transition">
                 Fresh Fruits
@@ -196,8 +196,8 @@ export default function HomePage() {
             to="/vegetables"
             className="group relative bg-white rounded-3xl p-5 border border-gray-100 hover:border-emerald-300 hover:shadow-lg transition-all duration-300 flex items-center gap-4 overflow-hidden"
           >
-            <div className="w-20 h-20 rounded-2xl bg-emerald-50 p-2 shrink-0 flex items-center justify-center border border-emerald-100 group-hover:scale-105 transition-transform">
-              <img src="/images/categories/vegetables.svg" alt="Vegetables" className="w-full h-full object-contain" />
+            <div className="w-20 h-20 rounded-2xl bg-emerald-50 p-1 shrink-0 flex items-center justify-center border border-emerald-100 group-hover:scale-105 transition-transform overflow-hidden">
+              <img src="/images/products/vegetables/tomato.jpg" alt="Vegetables" className="w-full h-full object-cover rounded-xl" />
             </div>
             <div>
               <span className="text-[10px] font-black text-[#0c831f] uppercase tracking-wider bg-emerald-50 px-2 py-0.5 rounded-md">
@@ -215,12 +215,12 @@ export default function HomePage() {
             to="/milk-dairy"
             className="group relative bg-white rounded-3xl p-5 border border-gray-100 hover:border-emerald-300 hover:shadow-lg transition-all duration-300 flex items-center gap-4 overflow-hidden"
           >
-            <div className="w-20 h-20 rounded-2xl bg-sky-50 p-2 shrink-0 flex items-center justify-center border border-sky-100 group-hover:scale-105 transition-transform">
-              <img src="/images/categories/dairy.svg" alt="Milk & Dairy" className="w-full h-full object-contain" />
+            <div className="w-20 h-20 rounded-2xl bg-sky-50 p-1 shrink-0 flex items-center justify-center border border-sky-100 group-hover:scale-105 transition-transform overflow-hidden">
+              <img src="/images/products/dairy/freshmilk.jpg" alt="Milk & Dairy" className="w-full h-full object-cover rounded-xl" />
             </div>
             <div>
               <span className="text-[10px] font-black text-sky-600 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded-md">
-                15 VARIETIES
+                12 VARIETIES
               </span>
               <h3 className="text-base font-black text-gray-900 mt-1 group-hover:text-[#0c831f] transition">
                 Milk & Dairy

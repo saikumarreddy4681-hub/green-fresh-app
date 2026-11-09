@@ -127,7 +127,7 @@ export default function AdminDashboardPage() {
       isOrganic: true,
       isBestseller: false,
       isDailyDeal: false,
-      image: '/images/categories/vegetables.svg',
+      image: '/images/products/vegetables/tomato.jpg',
       description: ''
     });
     setIsProductModalOpen(true);

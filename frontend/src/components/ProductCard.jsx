@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Plus, Minus, Heart, Clock, Star, Sparkles } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
-const FALLBACK_IMAGE = '/images/categories/vegetables.svg';
+const FALLBACK_IMAGE = '/images/products/vegetables/tomato.jpg';
 
 export default function ProductCard({ product }) {
   const {
@@ -62,7 +62,7 @@ export default function ProductCard({ product }) {
         {/* Product Image Link (1:1 Aspect Ratio) */}
         <Link
           to={`/product/${id}`}
-          className="block relative overflow-hidden rounded-xl bg-gray-50/50 aspect-square p-2 group-hover:scale-102 transition-transform duration-300"
+          className="block relative overflow-hidden rounded-xl bg-gray-50 aspect-square group-hover:scale-102 transition-transform duration-300"
         >
           <img
             src={product.image || FALLBACK_IMAGE}
@@ -71,7 +71,7 @@ export default function ProductCard({ product }) {
               e.currentTarget.onerror = null;
               e.currentTarget.src = FALLBACK_IMAGE;
             }}
-            className="w-full h-full object-contain mix-blend-multiply"
+            className="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
           />
         </Link>

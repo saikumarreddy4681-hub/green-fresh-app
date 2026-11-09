@@ -123,7 +123,7 @@ export default function CartPage() {
                     alt={item.name}
                     onError={(e) => {
                       e.currentTarget.onerror = null;
-                      e.currentTarget.src = '/images/categories/vegetables.svg';
+                      e.currentTarget.src = '/images/products/vegetables/tomato.jpg';
                     }}
                     className="w-18 h-18 sm:w-20 sm:h-20 object-cover rounded-2xl bg-gray-50 border border-gray-100"
                   />

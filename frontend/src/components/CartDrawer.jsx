@@ -152,13 +152,13 @@ export default function CartDrawer() {
               cartItems.map((item) => (
                 <div key={item.productId} className="py-3.5 flex gap-3 items-center group">
                   <img
-                    src={item.image || '/images/categories/vegetables.svg'}
+                    src={item.image || '/images/products/vegetables/tomato.jpg'}
                     alt={item.name}
                     onError={(e) => {
                       e.currentTarget.onerror = null;
-                      e.currentTarget.src = '/images/categories/vegetables.svg';
+                      e.currentTarget.src = '/images/products/vegetables/tomato.jpg';
                     }}
-                    className="w-14 h-14 object-contain rounded-xl bg-gray-50 p-1 border border-gray-100 shrink-0"
+                    className="w-14 h-14 object-cover rounded-xl bg-gray-50 border border-gray-100 shrink-0"
                   />
 
                   <div className="flex-1 min-w-0">
