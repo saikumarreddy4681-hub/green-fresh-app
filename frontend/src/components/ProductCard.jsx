@@ -1,57 +1,69 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Heart, Star, Sparkles, Eye, CheckCircle2, ShoppingBag } from 'lucide-react';
+import { Plus, Minus, Heart, Clock, Star, Sparkles } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const FALLBACK_IMAGE = '/images/categories/vegetables.svg';
 
 export default function ProductCard({ product }) {
-  const { addToCart, toggleWishlist, isInWishlist, cartItems } = useCart();
+  const {
+    addToCart,
+    getItemQuantity,
+    updateQuantity,
+    toggleWishlist,
+    isInWishlist
+  } = useCart();
+
   const id = product.id || product._id;
   const inWish = isInWishlist(id);
-  const cartItem = cartItems.find(item => item.productId === id);
+  const qty = getItemQuantity(id);
 
   const price = product.discountPrice || product.price;
+  const originalPrice = product.price;
   const hasDiscount = product.discountPrice && product.discountPrice < product.price;
   const discountPercent = hasDiscount
-    ? Math.round(((product.price - product.discountPrice) / product.price) * 100)
+    ? Math.round(((originalPrice - price) / originalPrice) * 100)
     : 0;
 
   const inStock = product.stock === undefined || product.stock > 0;
 
   return (
-    <div className="group relative bg-white rounded-3xl border border-emerald-100/90 p-4 shadow-sm hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between">
-      {/* Top Badges & Wishlist */}
+    <div className="group relative bg-white rounded-2xl border border-gray-100 p-3 shadow-2xs hover:shadow-md hover:border-gray-200 transition-all duration-200 flex flex-col justify-between h-full">
+      {/* Top Media Block */}
       <div className="relative">
-        <div className="flex items-center justify-between mb-2">
-          {product.isOrganic ? (
-            <span className="bg-emerald-50 text-emerald-700 text-[11px] font-bold tracking-wider px-2.5 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              ORGANIC
+        {/* Badges: Discount on Left, Wishlist on Right */}
+        <div className="absolute top-1.5 left-1.5 right-1.5 z-10 flex items-center justify-between pointer-events-none">
+          {hasDiscount ? (
+            <span className="bg-[#256fef] text-white text-[10px] font-black px-2 py-0.5 rounded-md shadow-2xs pointer-events-auto">
+              {discountPercent}% OFF
             </span>
           ) : (
-            <span className="text-[11px] text-gray-500 font-semibold">{product.category}</span>
+            <span></span>
           )}
 
           <button
             onClick={(e) => {
               e.preventDefault();
+              e.stopPropagation();
               toggleWishlist(product);
             }}
             aria-label="Wishlist"
-            className={`p-2 rounded-full transition-all ${
+            className={`p-1.5 rounded-full transition pointer-events-auto cursor-pointer ${
               inWish
                 ? 'bg-rose-50 text-rose-500 scale-110'
-                : 'bg-gray-50/80 text-gray-400 hover:text-rose-500 hover:bg-rose-50'
+                : 'bg-white/80 backdrop-blur-xs text-gray-400 hover:text-rose-500 hover:bg-white shadow-xs'
             }`}
             title={inWish ? 'Remove from Wishlist' : 'Add to Wishlist'}
           >
-            <Heart className={`w-4 h-4 ${inWish ? 'fill-rose-500' : ''}`} />
+            <Heart className={`w-3.5 h-3.5 ${inWish ? 'fill-rose-500 text-rose-500' : ''}`} />
           </button>
         </div>
 
-        {/* Product Image with Fallback */}
-        <Link to={`/product/${id}`} className="block relative overflow-hidden rounded-2xl bg-gray-50 aspect-square">
+        {/* Product Image Link (1:1 Aspect Ratio) */}
+        <Link
+          to={`/product/${id}`}
+          className="block relative overflow-hidden rounded-xl bg-gray-50/50 aspect-square p-2 group-hover:scale-102 transition-transform duration-300"
+        >
           <img
             src={product.image || FALLBACK_IMAGE}
             alt={product.name}
@@ -59,114 +71,95 @@ export default function ProductCard({ product }) {
               e.currentTarget.onerror = null;
               e.currentTarget.src = FALLBACK_IMAGE;
             }}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-contain mix-blend-multiply"
             loading="lazy"
           />
-
-          {hasDiscount && (
-            <span className="absolute top-2 left-2 bg-amber-500 text-white font-extrabold text-[10px] px-2 py-0.5 rounded-md shadow-sm">
-              {discountPercent}% OFF
-            </span>
-          )}
-
-          {/* Freshness score pill */}
-          {product.freshnessScore && (
-            <div className="absolute bottom-2 left-2 bg-white/95 backdrop-blur-sm text-emerald-900 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-emerald-600" />
-              <span>{product.freshnessScore}% Fresh</span>
-            </div>
-          )}
         </Link>
       </div>
 
-      {/* Info Content */}
-      <div className="mt-3.5 flex flex-col flex-1">
-        {/* Brand & Subcategory / Origin Tag */}
-        <div className="flex items-center justify-between text-[11px] mb-1">
-          <span className="font-bold text-emerald-800 tracking-wider uppercase text-[10px] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">
-            {product.brand || 'Green Fresh'}
-          </span>
-          <span className="text-gray-400 font-medium text-[10px] truncate max-w-[120px]">
-            {product.subcategory || product.farmOrigin}
-          </span>
+      {/* Product Details */}
+      <div className="mt-2.5 flex flex-col flex-1">
+        {/* Delivery Time Badge (Blinkit Style) */}
+        <div className="flex items-center gap-1 text-[10px] font-extrabold text-gray-500 mb-1">
+          <Clock className="w-3 h-3 text-[#0c831f]" />
+          <span>12 MINS</span>
+          {product.rating && (
+            <>
+              <span className="opacity-40">•</span>
+              <span className="flex items-center gap-0.5 text-amber-600 font-bold">
+                <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
+                {product.rating}
+              </span>
+            </>
+          )}
         </div>
 
-        {/* Product Title */}
+        {/* Product Name */}
         <Link
           to={`/product/${id}`}
-          className="text-base font-bold text-gray-900 hover:text-emerald-700 transition line-clamp-1 mb-1"
+          className="text-xs sm:text-[13px] font-bold text-gray-900 hover:text-[#0c831f] transition line-clamp-2 leading-snug mb-1"
+          title={product.name}
         >
           {product.name}
         </Link>
 
-        {/* Harvest Date / Description Preview */}
-        <p className="text-xs text-gray-500 mb-2 truncate">
-          {product.description || product.harvestDate || 'Fresh farm harvest'}
-        </p>
-
-        {/* Rating & Stock Status */}
-        <div className="flex items-center justify-between mb-3 text-xs">
-          <div className="flex items-center gap-1.5 text-gray-600">
-            <div className="flex items-center text-amber-500">
-              <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
-              <span className="font-bold ml-1 text-gray-900">{product.rating || '4.8'}</span>
-            </div>
-            <span className="text-gray-400">({product.reviewsCount || 1})</span>
-          </div>
-
-          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-            inStock ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'
-          }`}>
-            {inStock ? '● In Stock' : 'Out of Stock'}
-          </span>
+        {/* Unit / Weight */}
+        <div className="text-[11px] font-medium text-gray-500 mb-3 truncate">
+          {product.unit || '500 g'}
         </div>
 
-        {/* Price & Unit */}
-        <div className="pt-2 border-t border-gray-100 flex items-baseline justify-between mb-3">
-          <div>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-lg font-extrabold text-gray-900">₹{price}</span>
-              {hasDiscount && (
-                <span className="text-xs text-gray-400 line-through">₹{product.price}</span>
-              )}
-            </div>
-            <span className="text-[10px] text-gray-400 block -mt-0.5">per {product.unit || '500g'}</span>
-          </div>
-          <span className="text-[11px] text-gray-500 font-medium bg-gray-50 px-2 py-0.5 rounded-lg border border-gray-100">
-            {product.category}
-          </span>
-        </div>
-
-        {/* Dual Actions: View Details + Add to Cart */}
-        <div className="grid grid-cols-2 gap-2 mt-auto">
-          <Link
-            to={`/product/${id}`}
-            className="bg-gray-50 hover:bg-emerald-50 text-gray-700 hover:text-emerald-700 font-bold text-xs py-2.5 rounded-2xl border border-gray-200 hover:border-emerald-200 transition text-center flex items-center justify-center gap-1"
-          >
-            <Eye className="w-3.5 h-3.5" /> Details
-          </Link>
-
-          <button
-            onClick={() => addToCart(product, 1)}
-            disabled={!inStock}
-            className={`font-bold text-xs py-2.5 rounded-2xl transition shadow-sm flex items-center justify-center gap-1.5 ${
-              !inStock
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : cartItem
-                ? 'bg-emerald-700 text-white shadow-emerald-700/20 hover:bg-emerald-800'
-                : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20 active:scale-95'
-            }`}
-          >
-            {cartItem ? (
-              <>
-                <CheckCircle2 className="w-3.5 h-3.5" /> In Cart ({cartItem.quantity})
-              </>
-            ) : (
-              <>
-                <Plus className="w-3.5 h-3.5" /> Add
-              </>
+        {/* Bottom Price & ADD Action Button */}
+        <div className="mt-auto pt-2 border-t border-gray-50 flex items-center justify-between gap-2">
+          {/* Price */}
+          <div className="flex flex-col leading-none">
+            <span className="text-sm font-black text-gray-900">₹{price}</span>
+            {hasDiscount && (
+              <span className="text-[10px] text-gray-400 line-through mt-0.5">₹{originalPrice}</span>
             )}
-          </button>
+          </div>
+
+          {/* Action Button: ADD vs [-] Qty [+] */}
+          <div>
+            {!inStock ? (
+              <span className="text-[10px] font-bold text-gray-400 bg-gray-100 px-2 py-1 rounded-md">
+                Out of Stock
+              </span>
+            ) : qty === 0 ? (
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  addToCart(product);
+                }}
+                className="text-xs font-black text-[#0c831f] border border-[#0c831f] bg-white hover:bg-emerald-50 active:bg-emerald-100 px-4 py-1.5 rounded-lg uppercase tracking-wider transition-all shadow-2xs hover:shadow-xs cursor-pointer"
+              >
+                ADD
+              </button>
+            ) : (
+              <div className="flex items-center bg-[#0c831f] text-white rounded-lg px-2 py-1 text-xs font-bold shadow-2xs">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    updateQuantity(id, qty - 1);
+                  }}
+                  className="p-0.5 hover:opacity-80 active:scale-90 transition cursor-pointer"
+                  aria-label="Decrease quantity"
+                >
+                  <Minus className="w-3.5 h-3.5 stroke-[3]" />
+                </button>
+                <span className="px-2 font-black text-xs min-w-[16px] text-center">{qty}</span>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    updateQuantity(id, qty + 1);
+                  }}
+                  className="p-0.5 hover:opacity-80 active:scale-90 transition cursor-pointer"
+                  aria-label="Increase quantity"
+                >
+                  <Plus className="w-3.5 h-3.5 stroke-[3]" />
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -75,7 +75,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-xs text-emerald-300/80 leading-relaxed max-w-sm">
-              Green Fresh brings the freshest organic fruits, vegetables, pure A2 dairy, and wholesome groceries directly from certified local farms to your family kitchen table.
+              GreenFresh delivers 100% farm-inspected fruits, vegetables, and milk to your doorstep in 10-15 minutes. Pure quality, fair farmer pricing, and daily freshness.
             </p>
             <div className="space-y-2 text-xs text-emerald-200">
               <p className="flex items-center gap-2"><MapPin className="w-4 h-4 text-emerald-400" /> 108 Green Valley Agro Park, Bangalore, India</p>
@@ -88,12 +88,11 @@ export default function Footer() {
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-400">Categories</h4>
             <ul className="space-y-2 text-xs text-emerald-200/90">
-              <li><Link to="/category/fresh-fruits" className="hover:text-white transition">🍎 Fresh Fruits</Link></li>
-              <li><Link to="/category/fresh-vegetables" className="hover:text-white transition">🥦 Fresh Vegetables</Link></li>
-              <li><Link to="/category/organic-products" className="hover:text-white transition">🌿 100% Organic Range</Link></li>
-              <li><Link to="/category/dairy-products" className="hover:text-white transition">🥛 Farm Fresh Dairy</Link></li>
-              <li><Link to="/category/fresh-juices" className="hover:text-white transition">🍊 Cold-Pressed Juices</Link></li>
-              <li><Link to="/category/daily-groceries" className="hover:text-white transition">🌾 Daily Staples & Grains</Link></li>
+              <li><Link to="/fruits" className="hover:text-white transition">🍎 Fresh Fruits (20)</Link></li>
+              <li><Link to="/vegetables" className="hover:text-white transition">🥦 Fresh Vegetables (20)</Link></li>
+              <li><Link to="/milk-dairy" className="hover:text-white transition">🥛 Milk & Dairy (15)</Link></li>
+              <li><Link to="/products?offers=true" className="hover:text-white transition">🏷️ Today's Offers</Link></li>
+              <li><Link to="/products" className="hover:text-white transition">🛒 All Groceries (55)</Link></li>
             </ul>
           </div>
 

@@ -27,11 +27,11 @@ export default function CategoryPage({ initialCategory }) {
       title: 'Fresh Garden Vegetables',
       subtitle: 'Crisp, chemical-free greens, roots, and aromatics delivered farm-fresh to your doorstep',
       image: '🥦',
-      itemTarget: '25+ Fresh Vegetables'
+      itemTarget: '20+ Fresh Vegetables'
     },
     'milk-dairy': {
       title: 'Fresh Milk & Dairy',
-      subtitle: 'Pure pasteurized cow milk, A2 Gir cow milk, farm-fresh malai paneer, thick dahi, butter, and bilona ghee',
+      subtitle: 'Pure pasteurized cow milk, farm-fresh malai paneer, thick dahi, butter, and bilona ghee',
       image: '🥛',
       itemTarget: '15+ Dairy Essentials'
     }
@@ -107,17 +107,17 @@ export default function CategoryPage({ initialCategory }) {
           to="/category/fresh-vegetables"
           className={`px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-1.5 ${
             categorySlug === 'fresh-vegetables'
-              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+              ? 'bg-[#0c831f] text-white shadow-md'
               : 'bg-white text-gray-700 border border-gray-200 hover:bg-emerald-50'
           }`}
         >
-          🥦 Fresh Vegetables (25)
+          🥦 Fresh Vegetables (20)
         </Link>
         <Link
           to="/category/milk-dairy"
           className={`px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-1.5 ${
             categorySlug === 'milk-dairy'
-              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+              ? 'bg-[#0c831f] text-white shadow-md'
               : 'bg-white text-gray-700 border border-gray-200 hover:bg-emerald-50'
           }`}
         >
@@ -127,12 +127,12 @@ export default function CategoryPage({ initialCategory }) {
 
       {/* Product Grid */}
       {loading ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {[...Array(10)].map((_, i) => (
-            <div key={i} className="bg-white rounded-2xl h-72 border border-gray-100 animate-pulse p-4 space-y-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3.5">
+          {[...Array(12)].map((_, i) => (
+            <div key={i} className="bg-white rounded-2xl h-64 border border-gray-100 animate-pulse p-3 space-y-3">
               <div className="bg-gray-100 rounded-xl h-36 w-full" />
-              <div className="bg-gray-100 h-4 w-3/4 rounded" />
-              <div className="bg-gray-100 h-4 w-1/2 rounded" />
+              <div className="bg-gray-100 h-3.5 w-3/4 rounded" />
+              <div className="bg-gray-100 h-3 w-1/2 rounded" />
             </div>
           ))}
         </div>
@@ -140,9 +140,9 @@ export default function CategoryPage({ initialCategory }) {
         <div className="space-y-4">
           <div className="flex items-center justify-between text-xs text-gray-500 font-medium">
             <span>Showing {products.length} farm items</span>
-            <span className="flex items-center gap-1 text-emerald-700 font-semibold"><Leaf className="w-3.5 h-3.5" /> 100% Quality Inspected</span>
+            <span className="flex items-center gap-1 text-[#0c831f] font-bold">⚡ 12-Min Delivery</span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3.5">
             {products.map((product) => (
               <ProductCard key={product.id || product._id} product={product} />
             ))}
