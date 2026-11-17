@@ -3,6 +3,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 import { connectDB, isConnectedToMongo, memoryStore } from './config/db.js';
 
 import authRoutes from './routes/authRoutes.js';
@@ -13,13 +16,17 @@ import { getCategories } from './controllers/productController.js';
 
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const frontendDist = path.join(__dirname, '../frontend/dist');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Security Middleware: Helmet
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
-  contentSecurityPolicy: false // Allows Unsplash external images and modern dev tooling
+  contentSecurityPolicy: false // Allows external assets & modern dev tooling
 }));
 
 // Security Middleware: Rate Limiting
@@ -32,38 +39,32 @@ const generalLimiter = rateLimit({
 });
 app.use('/api', generalLimiter);
 
-// CORS configuration
+// Flexible and secure CORS configuration for Local & Render deployments
 const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
 app.use(cors({
-  origin: [
-    clientUrl,
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'http://localhost:5174',
-    'http://127.0.0.1:5174'
-  ],
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (
+      origin === clientUrl ||
+      origin.startsWith('http://localhost:') ||
+      origin.startsWith('http://127.0.0.1:') ||
+      origin.endsWith('.onrender.com')
+    ) {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
   credentials: true
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Root and Health check endpoints
-app.get('/', (req, res) => {
-  res.json({
-    success: true,
-    message: 'Green Fresh Backend API is online. Access /api/health or /api/products.'
-  });
-});
-
-app.get('/health', (req, res) => {
-  res.json({
-    success: true,
-    message: 'Green Fresh API is running'
-  });
-});
-
 // Health check endpoint (matches master prompt spec)
+app.get('/health', (req, res) => {
+  res.json({ success: true, message: 'Green Fresh API is running' });
+});
+
 app.get('/api/health', async (req, res) => {
   let prodCount = memoryStore.products.length;
   let catCount = memoryStore.categories.length;
@@ -78,7 +79,7 @@ app.get('/api/health', async (req, res) => {
   res.json({
     success: true,
     message: 'Green Fresh API is running',
-    database: isConnectedToMongo ? 'Connected (MongoDB Atlas)' : 'Active (In-Memory Resilient Storage)',
+    database: isConnectedToMongo ? 'Connected (MongoDB Atlas)' : 'Active (Local Resilient Mode)',
     productsCount: prodCount,
     categoriesCount: catCount,
     timestamp: new Date().toISOString()
@@ -94,7 +95,25 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/admin', adminRoutes);
 
-// 404 handler
+// In single-service Render deployments, serve the built React frontend
+if (fs.existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+  app.get('*', (req, res, next) => {
+    if (req.originalUrl.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.json({
+      success: true,
+      message: 'Green Fresh Backend API is online. Access /api/health or /api/products.'
+    });
+  });
+}
+
+// 404 handler for API routes
 app.use((req, res) => {
   res.status(404).json({ success: false, message: `Route not found: ${req.originalUrl}` });
 });

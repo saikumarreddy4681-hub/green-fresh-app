@@ -1,10 +1,9 @@
 services:
-  # Backend Web Service
+  # Backend Web Service (Serves APIs + Built Frontend)
   - type: web
     name: greenfresh-backend
     runtime: node
-    rootDir: backend
-    buildCommand: npm install
+    buildCommand: npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
