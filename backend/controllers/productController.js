@@ -7,46 +7,57 @@ export const getProducts = async (req, res) => {
     const { category, search, sort, isOrganic, isDailyDeal, isBestseller, isFeatured, brand, subcategory, minPrice, maxPrice } = req.query;
 
     if (isConnectedToMongo) {
-      let filter = {};
+      const andClauses = [];
 
       if (category && category !== 'all') {
         const catNormalized = category.replace(/-/g, ' ');
-        filter.$or = [
-          { category: new RegExp(catNormalized, 'i') },
-          { categorySlug: category.toLowerCase() }
-        ];
+        andClauses.push({
+          $or: [
+            { category: new RegExp(catNormalized, 'i') },
+            { categorySlug: category.toLowerCase() }
+          ]
+        });
       }
 
       if (subcategory && subcategory !== 'all') {
-        filter.subcategory = new RegExp(subcategory.replace(/-/g, ' '), 'i');
+        andClauses.push({ subcategory: new RegExp(subcategory.replace(/-/g, ' '), 'i') });
       }
 
       if (brand && brand !== 'all') {
-        filter.brand = new RegExp(brand, 'i');
+        andClauses.push({ brand: new RegExp(brand, 'i') });
       }
 
       if (search) {
-        filter.$or = [
-          { name: new RegExp(search, 'i') },
-          { description: new RegExp(search, 'i') },
-          { brand: new RegExp(search, 'i') },
-          { subcategory: new RegExp(search, 'i') },
-          { farmOrigin: new RegExp(search, 'i') }
-        ];
+        andClauses.push({
+          $or: [
+            { name: new RegExp(search, 'i') },
+            { description: new RegExp(search, 'i') },
+            { brand: new RegExp(search, 'i') },
+            { subcategory: new RegExp(search, 'i') },
+            { farmOrigin: new RegExp(search, 'i') }
+          ]
+        });
       }
 
-      if (isOrganic === 'true') filter.isOrganic = true;
-      if (isDailyDeal === 'true') filter.isDailyDeal = true;
-      if (isBestseller === 'true') filter.isBestseller = true;
-      if (isFeatured === 'true') filter.isFeatured = true;
+      if (isOrganic === 'true') andClauses.push({ isOrganic: true });
+      if (isDailyDeal === 'true') andClauses.push({ isDailyDeal: true });
+      if (isBestseller === 'true') andClauses.push({ isBestseller: true });
+      if (isFeatured === 'true') andClauses.push({ isFeatured: true });
 
       if (minPrice || maxPrice) {
-        filter.price = {};
-        if (minPrice) filter.price.$gte = Number(minPrice);
-        if (maxPrice) filter.price.$lte = Number(maxPrice);
+        const priceCond = {};
+        if (minPrice) priceCond.$gte = Number(minPrice);
+        if (maxPrice) priceCond.$lte = Number(maxPrice);
+        andClauses.push({
+          $or: [
+            { price: priceCond },
+            { discountPrice: priceCond }
+          ]
+        });
       }
 
-      let query = Product.find(filter);
+      const finalFilter = andClauses.length > 0 ? { $and: andClauses } : {};
+      let query = Product.find(finalFilter);
 
       if (sort === 'price-low') query = query.sort({ discountPrice: 1, price: 1 });
       else if (sort === 'price-high') query = query.sort({ discountPrice: -1, price: -1 });

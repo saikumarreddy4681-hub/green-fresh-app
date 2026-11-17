@@ -19,7 +19,7 @@ router.post('/', (req, res, next) => {
 }, createOrder);
 
 router.get('/my-orders', protect, getMyOrders);
-router.get('/:id', getOrderById);
+router.get('/:id', protect, getOrderById);
 router.put('/:id/cancel', protect, cancelOrder);
 
 export default router;

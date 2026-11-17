@@ -15,7 +15,12 @@ export const protect = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'green_fresh_secret_key_2026_super_secure');
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      console.error('❌ JWT_SECRET is not set.');
+      return res.status(500).json({ success: false, message: 'Server misconfiguration' });
+    }
+    const decoded = jwt.verify(token, secret);
 
     if (isConnectedToMongo) {
       const user = await User.findById(decoded.id).select('-password');

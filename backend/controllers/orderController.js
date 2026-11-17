@@ -64,7 +64,7 @@ export const createOrder = async (req, res) => {
 
       // Decrement stock in MongoDB
       for (const item of orderItems) {
-        await Product.findByIdAndUpdate(item.productId, {
+        await Product.findOneAndUpdate({ _id: item.productId }, {
           $inc: { stock: -item.quantity }
         });
       }
@@ -132,16 +132,26 @@ export const getMyOrders = async (req, res) => {
 export const getOrderById = async (req, res) => {
   try {
     const { id } = req.params;
+    const userId = req.user ? (req.user._id || req.user.id) : null;
+    const userEmail = req.user ? req.user.email : null;
 
     if (isConnectedToMongo) {
       const order = await Order.findOne({
         $or: [{ _id: id.match(/^[0-9a-fA-F]{24}$/) ? id : null }, { orderNumber: id }]
       });
       if (!order) return res.status(404).json({ success: false, message: 'Order not found' });
+      // Ownership check
+      if (order.user && order.user.toString() !== userId?.toString() && order.customer.email !== userEmail) {
+        return res.status(403).json({ success: false, message: 'Access denied' });
+      }
       return res.json({ success: true, order });
     } else {
       const order = memoryStore.orders.find(o => o._id === id || o.orderNumber === id);
       if (!order) return res.status(404).json({ success: false, message: 'Order not found' });
+      // Ownership check for in‑memory
+      if (order.user && order.user !== userId && order.customer.email !== userEmail) {
+        return res.status(403).json({ success: false, message: 'Access denied' });
+      }
       return res.json({ success: true, order });
     }
   } catch (error) {
@@ -152,13 +162,25 @@ export const getOrderById = async (req, res) => {
 export const cancelOrder = async (req, res) => {
   try {
     const { id } = req.params;
+    const userId = req.user ? (req.user._id || req.user.id) : null;
+    const userEmail = req.user ? req.user.email : null;
 
     if (isConnectedToMongo) {
       const order = await Order.findById(id);
       if (!order) return res.status(404).json({ success: false, message: 'Order not found' });
 
+      // Ownership check
+      if (order.user && order.user.toString() !== userId?.toString() && order.customer.email !== userEmail) {
+        return res.status(403).json({ success: false, message: 'Access denied' });
+      }
+
       if (['Shipped', 'Out For Delivery', 'Delivered'].includes(order.orderStatus)) {
         return res.status(400).json({ success: false, message: 'Order is already in transit or delivered and cannot be cancelled.' });
+      }
+
+      // Restore stock in MongoDB
+      for (const item of order.orderItems) {
+        await Product.findOneAndUpdate({ _id: item.productId }, { $inc: { stock: item.quantity } });
       }
 
       order.orderStatus = 'Cancelled';
@@ -174,8 +196,19 @@ export const cancelOrder = async (req, res) => {
       const order = memoryStore.orders.find(o => o._id === id || o.orderNumber === id);
       if (!order) return res.status(404).json({ success: false, message: 'Order not found' });
 
+      // Ownership check for in‑memory
+      if (order.user && order.user !== userId && order.customer.email !== userEmail) {
+        return res.status(403).json({ success: false, message: 'Access denied' });
+      }
+
       if (['Shipped', 'Out For Delivery', 'Delivered'].includes(order.orderStatus)) {
         return res.status(400).json({ success: false, message: 'Order is already in transit or delivered and cannot be cancelled.' });
+      }
+
+      // Restore stock in memory
+      for (const item of order.orderItems) {
+        const prod = memoryStore.products.find(p => p.id === item.productId || p._id === item.productId);
+        if (prod) prod.stock += item.quantity;
       }
 
       order.orderStatus = 'Cancelled';

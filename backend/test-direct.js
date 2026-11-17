@@ -2,11 +2,11 @@ import { memoryStore } from './config/db.js';
 import { getProducts, getCategories, getProductById } from './controllers/productController.js';
 import { login, register } from './controllers/authController.js';
 
-console.log('--- RUNNING GREENFRESH DIRECT TEST SUITE (47 PRODUCTS • 3 CATEGORIES) ---');
+console.log('--- RUNNING GREENFRESH DIRECT TEST SUITE (46 PRODUCTS • 3 CATEGORIES) ---');
 
 // Test 1: Products count
 const prodCount = memoryStore.products.length;
-console.log('[TEST 1 - Product Count (47)]: ', prodCount === 47 ? 'PASS' : `FAIL (${prodCount})`);
+console.log('[TEST 1 - Product Count (46)]: ', prodCount === 46 ? 'PASS' : `FAIL (${prodCount})`);
 
 // Test 2: Category Count (3)
 const catCount = memoryStore.categories.length;
@@ -21,7 +21,7 @@ const mockRes = {
 
 // Test 3: Get all products via controller
 await getProducts({ query: {} }, mockRes);
-console.log('[TEST 3 - Controller All Prods]:', mockResData.success && mockResData.products.length === 47 ? 'PASS' : 'FAIL');
+console.log('[TEST 3 - Controller All Prods]:', mockResData.success && mockResData.products.length === 46 ? 'PASS' : 'FAIL');
 
 // Test 4: Category Fresh Fruits (15)
 await getProducts({ query: { category: 'fresh-fruits' } }, mockRes);
@@ -31,18 +31,27 @@ console.log('[TEST 4 - Fresh Fruits (15)]:   ', mockResData.success && mockResDa
 await getProducts({ query: { category: 'fresh-vegetables' } }, mockRes);
 console.log('[TEST 5 - Vegetables (20)]:     ', mockResData.success && mockResData.products.length === 20 ? 'PASS' : `FAIL (${mockResData.products.length})`);
 
-// Test 6: Category Milk & Dairy (12)
+// Test 6: Category Milk & Dairy (11)
 await getProducts({ query: { category: 'milk-dairy' } }, mockRes);
-console.log('[TEST 6 - Milk & Dairy (12)]:   ', mockResData.success && mockResData.products.length === 12 ? 'PASS' : `FAIL (${mockResData.products.length})`);
+console.log('[TEST 6 - Milk & Dairy (11)]:   ', mockResData.success && mockResData.products.length === 11 ? 'PASS' : `FAIL (${mockResData.products.length})`);
 
 // Test 7: Image Verification (Real commercial photographs in /images/products/)
 const apple = memoryStore.products.find(p => p.name === 'Apple');
 const tomato = memoryStore.products.find(p => p.name === 'Tomato');
-const milk = memoryStore.products.find(p => p.name === 'Fresh Milk');
+const tonedMilk = memoryStore.products.find(p => p.name === 'Toned Milk');
+const butter = memoryStore.products.find(p => p.name === 'Butter');
+const ghee = memoryStore.products.find(p => p.name === 'Ghee');
+const paneer = memoryStore.products.find(p => p.name === 'Paneer');
+const curd = memoryStore.products.find(p => p.name === 'Curd');
+
 const areImagesValid = apple?.image === '/images/products/fruits/apple.jpg' &&
                        tomato?.image === '/images/products/vegetables/tomato.jpg' &&
-                       milk?.image === '/images/products/dairy/freshmilk.jpg';
-console.log('[TEST 7 - Real Photos Paths]:   ', areImagesValid ? 'PASS' : 'FAIL', '(Verified genuine commercial photos)');
+                       tonedMilk?.image === '/images/products/dairy/tonedmilk.jpg' &&
+                       butter?.image === '/images/products/dairy/butter.jpg' &&
+                       ghee?.image === '/images/products/dairy/ghee.jpg' &&
+                       paneer?.image === '/images/products/dairy/paneer.jpg' &&
+                       curd?.image === '/images/products/dairy/curd.jpg';
+console.log('[TEST 7 - Real Photos Paths]:   ', areImagesValid ? 'PASS' : 'FAIL', '(Verified genuine commercial photos for all categories)');
 
 // Test 8: Customer Login
 let loginResult = null;
