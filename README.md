@@ -160,19 +160,26 @@ NODE_ENV=development
 
 ## 🐙 Connecting to GitHub
 
-The repository is already initialized and committed locally with a clean `.gitignore`.
+The repository is connected to `https://github.com/saikumarreddy4681-hub/green-fresh-app.git`.
 
-To connect to your GitHub account (`saikumarreddy4681-hub`):
+Push project changes from the project root:
 
-1. Create a new empty repository named `green-fresh-app` on [GitHub](https://github.com/new) (do **not** check "Initialize with README").
-2. Run the following commands in PowerShell from the project root:
 ```powershell
-# Add your GitHub remote repository
-git remote add origin https://github.com/saikumarreddy4681-hub/green-fresh-app.git
-
-# Push main branch to GitHub
-git push -u origin main
+git push origin main
 ```
+
+---
+
+## 🚀 Deploy to Render (Free)
+
+The root `render.yaml` configures one free Node web service that builds and serves both the API and frontend.
+
+1. Sign in to [Render](https://dashboard.render.com/) and connect your GitHub account.
+2. Select **New** → **Blueprint**, choose `green-fresh-app`, and apply the `render.yaml` configuration.
+3. Enter your MongoDB Atlas connection string as `MONGODB_URI` and set a strong `ADMIN_PASSWORD` when prompted. Render generates `JWT_SECRET`.
+4. After the deploy succeeds, open the service URL and check `/api/health`.
+
+Render's free web services can spin down when idle. MongoDB Atlas keeps application data persistent across service restarts.
 
 ---
 
